@@ -50,7 +50,11 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
         >
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-slate-100">The Sales Agency</span>
+          <img 
+            src="/logo_met_tekst.png" 
+            alt="The Sales Agency" 
+            className="h-20 md:h-24 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop Menu Items */}

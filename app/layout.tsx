@@ -4,6 +4,7 @@ import "./globals.css";
 import { NavbarWrapper } from "@/components/navbar-wrapper";
 import { Footer } from "@/components/footer";
 import { CyberBackground } from "@/components/cyber-background";
+import { PasswordLock } from "@/components/password-lock";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,6 +20,10 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "The Sales Agency - Sales is een Lifestyle",
   description: "The Sales Agency - Verander sales in jouw lifestyle",
+  icons: {
+    icon: "/logo_tomas.png",
+    apple: "/logo_tomas.png",
+  },
 };
 
 export default function RootLayout({
@@ -31,30 +36,32 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        {/* Background Image - Fixed achtergrond voor hele pagina */}
-        <div 
-          className="fixed inset-0 z-0"
-          style={{
-            backgroundImage: "url('/paintball-bg.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-          }}
-        >
-          {/* Overlay for consistent tint and better text readability */}
-          <div className="absolute inset-0 bg-slate-950/50" />
-        </div>
-        <div className="fixed inset-0 z-[1] pointer-events-none">
-          <CyberBackground />
-        </div>
-        <NavbarWrapper />
-        <div className="flex-1 relative z-10">
-          {children}
-        </div>
-        <div className="relative z-10">
-          <Footer />
-        </div>
+        <PasswordLock>
+          {/* Background Image - Fixed achtergrond voor hele pagina */}
+          <div 
+            className="fixed inset-0 z-0"
+            style={{
+              backgroundImage: "url('/paintball-bg.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed",
+            }}
+          >
+            {/* Overlay for consistent tint and better text readability */}
+            <div className="absolute inset-0 bg-slate-950/50" />
+          </div>
+          <div className="fixed inset-0 z-[1] pointer-events-none">
+            <CyberBackground />
+          </div>
+          <NavbarWrapper />
+          <div className="flex-1 relative z-10">
+            {children}
+          </div>
+          <div className="relative z-10">
+            <Footer />
+          </div>
+        </PasswordLock>
       </body>
     </html>
   );
