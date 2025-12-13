@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface NavbarProps {
   onStartQuiz: () => void;
@@ -81,8 +82,8 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
       <div className="max-w-7xl mx-auto">
         <motion.nav
           className={cn(
-            "relative flex items-center justify-between h-16 px-6 backdrop-blur-xl border border-slate-800/50 transition-all duration-300",
-            "bg-slate-900/80"
+            "relative flex items-center justify-between h-16 px-6 md:backdrop-blur-xl border border-slate-800/50 transition-all duration-300",
+            "bg-slate-900/95 md:bg-slate-900/80"
           )}
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
@@ -90,10 +91,14 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
         >
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <img 
+          <Image 
             src="/logo_met_tekst.png" 
             alt="The Sales Agency" 
+            width={200}
+            height={96}
             className="h-20 md:h-24 w-auto object-contain"
+            priority
+            sizes="(max-width: 768px) 160px, 200px"
           />
         </Link>
 
@@ -155,7 +160,7 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden absolute top-full left-0 right-0 mt-2 bg-slate-900/80 backdrop-blur-xl border border-slate-800/50 p-4 space-y-2 z-50"
+              className="md:hidden absolute top-full left-0 right-0 mt-2 bg-slate-900/95 md:bg-slate-900/80 md:backdrop-blur-xl border border-slate-800/50 p-4 space-y-2 z-50"
             >
               {menuItems.map((item) => {
                 const isActive = pathname === item.href;

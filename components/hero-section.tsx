@@ -22,7 +22,7 @@ export function HeroSection() {
           transition={{ duration: 0.8 }}
           className="mb-6"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-medium backdrop-blur-sm">
+          <span className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 border border-blue-500/30 text-blue-300 text-sm font-medium md:backdrop-blur-sm">
             <Sparkles className="h-4 w-4" />
             Powered by AI Analysis
           </span>

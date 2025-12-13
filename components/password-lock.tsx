@@ -66,7 +66,7 @@ export function PasswordLock({ children }: { children: React.ReactNode }) {
           transition={{ duration: 0.3 }}
           className="relative z-10 w-full max-w-md px-6"
         >
-          <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800/50 p-8 rounded-lg shadow-2xl">
+          <div className="bg-slate-900/95 md:bg-slate-900/90 md:backdrop-blur-xl border border-slate-800/50 p-8 rounded-lg shadow-2xl">
             <div className="flex flex-col items-center mb-6">
               <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
                 <Lock className="h-8 w-8 text-slate-300" />

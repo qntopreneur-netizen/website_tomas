@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 import { SalesQuiz } from "@/components/sales-quiz";
 import { Navbar } from "@/components/ui/navbar";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 interface NewHeroSectionProps {
   quizOpen?: boolean;
@@ -16,8 +17,34 @@ interface NewHeroSectionProps {
 
 export function NewHeroSection({ quizOpen, setQuizOpen }: NewHeroSectionProps = {}) {
   const [internalQuizOpen, setInternalQuizOpen] = useState(false);
+  const isMobile = useIsMobile();
   const isQuizOpen = quizOpen !== undefined ? quizOpen : internalQuizOpen;
   const handleSetQuizOpen = setQuizOpen || setInternalQuizOpen;
+
+  // Animation variants - disabled on mobile for better performance
+  const animationProps = isMobile
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 }, transition: { duration: 0 } }
+    : {
+        initial: { opacity: 0, y: 30 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.8 }
+      };
+
+  const animationPropsText = isMobile
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 }, transition: { duration: 0 } }
+    : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, delay: 0.2 }
+      };
+
+  const animationPropsButton = isMobile
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 }, transition: { duration: 0 } }
+    : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, delay: 0.4 }
+      };
   
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
@@ -42,9 +69,7 @@ export function NewHeroSection({ quizOpen, setQuizOpen }: NewHeroSectionProps = 
           <div className="max-w-2xl">
             <motion.h1
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 text-white uppercase tracking-wider md:tracking-widest leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              {...animationProps}
             >
               WORD JIJ ONS
               <br />
@@ -53,17 +78,13 @@ export function NewHeroSection({ quizOpen, setQuizOpen }: NewHeroSectionProps = 
 
             <motion.p
               className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 md:mb-8 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              {...animationPropsText}
             >
               Laat AI een persoonlijkheidsanalyse doen en check hoeveel geld jij per dag zou verdienen als je bij ons zou komen werken
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              {...animationPropsButton}
               className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4"
             >
               <Button

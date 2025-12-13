@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Trophy, TrendingUp, Award } from "lucide-react";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 function useCountUp(end: number, start: number, duration: number = 2000, isInView: boolean) {
   const [count, setCount] = useState(start);
@@ -45,29 +46,33 @@ function useCountUp(end: number, start: number, duration: number = 2000, isInVie
 
 export function WerverVanDeMaand() {
   const statsRef = useRef(null);
+  const isMobile = useIsMobile();
   const isInView = useInView(statsRef, { once: true, margin: "-100px" });
   
   const salesCount = useCountUp(46, 0, 2000, isInView);
   const uitvalCount = useCountUp(2.5, 0, 2000, isInView);
+
+  // Animation variants - disabled on mobile for better performance
+  const motionProps = isMobile
+    ? { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
+
+  const motionPropsDelayed = (delay: number) => isMobile
+    ? { initial: { opacity: 1, y: 0 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6, delay } };
   
   return (
     <section className="relative bg-white py-24 md:py-32 px-4">
       <div className="max-w-7xl mx-auto">
         <motion.h2
           className="text-4xl md:text-6xl font-bold text-center mb-16 text-blue-600 uppercase tracking-widest"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          {...motionProps}
         >
           Werver van de maand
         </motion.h2>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          {...motionPropsDelayed(0.2)}
           className="grid grid-cols-1 lg:grid-cols-2 gap-0 max-w-6xl mx-auto overflow-hidden shadow-2xl"
         >
           {/* Foto sectie - Links */}
@@ -87,10 +92,7 @@ export function WerverVanDeMaand() {
           <div className="bg-white p-8 md:p-12 flex flex-col justify-center">
             {/* Trophy Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              {...motionPropsDelayed(0.3)}
               className="flex items-center gap-2 mb-6"
             >
               <div className="p-2 bg-blue-600/10 border border-blue-600/20">
@@ -103,10 +105,7 @@ export function WerverVanDeMaand() {
 
             {/* Naam en Rol */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              {...motionPropsDelayed(0.4)}
               className="mb-8"
             >
               <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
@@ -120,10 +119,7 @@ export function WerverVanDeMaand() {
             {/* Stats Grid */}
             <motion.div
               ref={statsRef}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              {...motionPropsDelayed(0.5)}
               className="grid grid-cols-2 gap-6 mb-8"
             >
               {/* Sales Stat */}
@@ -156,10 +152,7 @@ export function WerverVanDeMaand() {
             {/* Beschrijving */}
             <motion.p
               className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              {...motionPropsDelayed(0.6)}
             >
               Wat een epische strijd deze maand! Maar er kan er maar één bovenaan staan… en dat is <span className="font-semibold text-blue-600">Noah</span>! Hard gewerkt, scherp gebleven en verdiend op de top van het podium.
             </motion.p>
@@ -167,10 +160,7 @@ export function WerverVanDeMaand() {
             {/* Bonus Badge */}
             <motion.div
               className="bg-blue-600/10 border-2 border-blue-600/30 p-6 text-center"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.7 }}
+              {...motionPropsDelayed(0.7)}
             >
               <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">
                 Gefeliciteerd met je
