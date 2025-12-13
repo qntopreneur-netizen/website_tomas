@@ -1,29 +1,31 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Quote } from "lucide-react";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 const testimonials = [
   {
     name: "Annabel",
-    text: "Ik ben bij The Sales Agency gestart als student en heb in korte tijd enorm veel bijgeleerd. Naast goede verdiensten werk ik met een geweldig team!",
+    text: "Ik ben bij The Sales Agency gestart als student en heb in korte tijd enorm veel bijgeleerd. Naast goede verdiensten werk ik met een super leuk team!",
   },
   {
     name: "Renee",
-    text: "De coaching en training heeft mijn verkoopskills naar een hoger niveau gebracht. Ik had nooit gedacht dat ik zo succesvol zou worden in sales.",
+    text: "De coaching en training heeft mijn sales skills naar een hoger niveau gebracht. Ik had nooit gedacht dat ik hier goed in zou worden.",
   },
   {
     name: "Hugo",
     text: "De flexibele werktijden combineren perfect met mijn studie. Daarnaast is de sfeer onderling fantastisch en leer ik elke dag bij.",
   },
   {
-    name: "Sophie",
-    text: "Na mijn sollicitatie werd ik direct warm ontvangen. De trainingen zijn intensief maar leerzaam. Inmiddels verdien ik bovengemiddeld en heb ik vrienden voor het leven gemaakt.",
+    name: "Noah",
+    text: "Na mijn sollicitatie werd ik direct warm ontvangen. De trainingen zijn intensief maar leerzaam. Inmiddels verdien ik bovengemiddeld en heb ik super veel leuke mensen leren kennen.",
   },
   {
     name: "Lucas",
-    text: "The Sales Agency biedt mij de perfecte combinatie van persoonlijke ontwikkeling en een goed salaris. Ik heb al veel klanten blij kunnen maken met onze diensten.",
+    text: "Ik dacht eerst eigenlijk dat sales niks voor mij zou zijn, maar The Sales Agency heeft me toch het tegendeel bewezen.",
   },
   {
     name: "Nina",
@@ -32,27 +34,30 @@ const testimonials = [
 ];
 
 export function TestimonialsSection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Duplicate testimonials voor seamless loop
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="relative bg-white py-24 md:py-32 px-4 overflow-hidden">
+    <section id="testimonials-section" className="relative bg-white py-24 md:py-32 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <BlurFade delay={0} duration={0.6} className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold text-blue-600 uppercase tracking-widest mb-4">
             Wat zeggen onze teamleden?
           </h2>
           <p className="text-gray-700 text-base md:text-xl max-w-3xl mx-auto leading-relaxed">
             Ontdek hoe jouw toekomstige collega's de vrijheid, het teamgevoel en de lekkere verdiensten bij The Sales Agency elke dag beleven.
           </p>
-        </motion.div>
+        </BlurFade>
 
         {/* Scrolling Testimonials */}
         <div className="relative">
@@ -62,25 +67,27 @@ export function TestimonialsSection() {
           {/* Desktop: Right Gradient Overlay */}
           <div className="hidden md:block absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-          {/* Scrolling Container */}
+          {/* Scrolling Container - Using CSS animation for smooth performance */}
           <div className="overflow-hidden">
-            <motion.div
-              className="flex gap-3 md:gap-4"
-              animate={{
-                x: ["0%", "-50%"], // -50% voor seamless loop (helft van duplicated content)
-              }}
-              transition={{
-                duration: 60,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+            <div
+              className="testimonials-marquee flex gap-3 md:gap-4"
               style={{ width: "max-content" }}
             >
               {duplicatedTestimonials.map((testimonial, index) => (
                 <Card
                   key={`${testimonial.name}-${index}`}
-                  className="bg-slate-50 border border-gray-200 p-3 md:p-5 w-[200px] md:w-[360px] flex-shrink-0 shadow-lg hover:shadow-xl transition-shadow"
+                  className="bg-slate-50 border border-gray-200 p-3 md:p-5 w-[200px] md:w-[360px] flex-shrink-0 shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden"
                 >
+                  {/* Only show BorderBeam on desktop */}
+                  {!isMobile && (
+                    <BorderBeam
+                      size={100}
+                      duration={8}
+                      colorFrom="#3b82f6"
+                      colorTo="#8b5cf6"
+                      borderWidth={2}
+                    />
+                  )}
                   <CardContent className="p-0">
                     <div className="flex flex-col h-full">
                       {/* Quote Icon */}
@@ -108,7 +115,7 @@ export function TestimonialsSection() {
                   </CardContent>
                 </Card>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

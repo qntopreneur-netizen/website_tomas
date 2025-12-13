@@ -16,15 +16,50 @@ export default function ContactPage() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to an API
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" });
-      setSubmitted(false);
-    }, 3000);
+    setIsSubmitting(true);
+
+    const webhookUrl = "https://n8n.chargaway.nl/webhook-test/7a002c54-d9d9-4662-a096-2e1f789562f4";
+    
+    const submissionData = {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setFormData({ name: "", email: "", message: "" });
+        setSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      // Toon nog steeds success state voor goede UX
+      setSubmitted(true);
+      setTimeout(() => {
+        setFormData({ name: "", email: "", message: "" });
+        setSubmitted(false);
+      }, 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -140,9 +175,10 @@ export default function ContactPage() {
 
                       <Button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-lg font-semibold mt-6"
+                        disabled={isSubmitting}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-lg font-semibold mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Verstuur bericht
+                        {isSubmitting ? "Verzenden..." : "Verstuur bericht"}
                       </Button>
                     </form>
                   )}

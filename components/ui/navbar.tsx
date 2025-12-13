@@ -26,6 +26,46 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
     { href: "/contact", label: "Contact" },
   ];
 
+  // Handle scroll to testimonials
+  const handleScrollToTestimonials = () => {
+    setIsMobileMenuOpen(false);
+    
+    if (pathname === "/") {
+      const testimonialsSection = document.getElementById("testimonials-section");
+      if (testimonialsSection) {
+        const offset = 80; // Account for fixed navbar height
+        const elementPosition = testimonialsSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    } else {
+      // If not on homepage, navigate to home first then scroll
+      window.location.href = "/#testimonials-section";
+    }
+  };
+
+  // Handle hash navigation on page load
+  useEffect(() => {
+    if (pathname === "/" && window.location.hash === "#testimonials-section") {
+      setTimeout(() => {
+        const testimonialsSection = document.getElementById("testimonials-section");
+        if (testimonialsSection) {
+          const offset = 80;
+          const elementPosition = testimonialsSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 100);
+    }
+  }, [pathname]);
+
   // Check scroll voor glassmorphism effect
   useEffect(() => {
     const handleScroll = () => {
@@ -37,16 +77,16 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
   }, []);
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 w-full px-4">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto">
         <motion.nav
           className={cn(
             "relative flex items-center justify-between h-16 px-6 backdrop-blur-xl border border-slate-800/50 transition-all duration-300",
             "bg-slate-900/80"
           )}
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0 }}
         >
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
@@ -76,6 +116,12 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
               </Link>
             );
           })}
+          <button
+            onClick={handleScrollToTestimonials}
+            className="px-4 py-2 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-all duration-200"
+          >
+            Wat Zegt Het Team
+          </button>
         </div>
 
         {/* Desktop CTA Button */}
@@ -129,6 +175,12 @@ export function Navbar({ onStartQuiz }: NavbarProps) {
                   </Link>
                 );
               })}
+              <button
+                onClick={handleScrollToTestimonials}
+                className="block w-full text-left px-4 py-3 text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-all duration-200"
+              >
+                Wat Zegt Het Team
+              </button>
               <Link href="/solliciteren" className="w-full">
                 <Button
                   onClick={() => setIsMobileMenuOpen(false)}

@@ -62,51 +62,72 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-  		keyframes: {
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			},
-  			'orb-pulse': {
-  				'0%, 100%': {
-  					transform: 'scale(1)',
-  					opacity: '0.3'
-  				},
-  				'50%': {
-  					transform: 'scale(1.2)',
-  					opacity: '0.5'
-  				}
-  			},
-  			'orb-float': {
-  				'0%, 100%': {
-  					transform: 'translate(0, 0)'
-  				},
-  				'33%': {
-  					transform: 'translate(30px, -30px)'
-  				},
-  				'66%': {
-  					transform: 'translate(-20px, 20px)'
-  				}
-  			}
-  		},
-  		animation: {
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'orb-pulse': 'orb-pulse 8s ease-in-out infinite',
-  			'orb-float': 'orb-float 20s ease-in-out infinite'
-  		}
+		keyframes: {
+			'accordion-down': {
+				from: {
+					height: '0'
+				},
+				to: {
+					height: 'var(--radix-accordion-content-height)'
+				}
+			},
+			'accordion-up': {
+				from: {
+					height: 'var(--radix-accordion-content-height)'
+				},
+				to: {
+					height: '0'
+				}
+			},
+			'orb-pulse': {
+				'0%, 100%': {
+					transform: 'scale(1)',
+					opacity: '0.3'
+				},
+				'50%': {
+					transform: 'scale(1.2)',
+					opacity: '0.5'
+				}
+			},
+			'orb-float': {
+				'0%, 100%': {
+					transform: 'translate(0, 0)'
+				},
+				'33%': {
+					transform: 'translate(30px, -30px)'
+				},
+				'66%': {
+					transform: 'translate(-20px, 20px)'
+				}
+			},
+			'shimmer-slide': {
+				to: {
+					transform: 'translate(calc(100cqw - 100%), 0)'
+				}
+			},
+			'spin-around': {
+				'0%': {
+					transform: 'translateZ(0) translate(0, 0) rotate(0deg)'
+				},
+				'15%, 35%': {
+					transform: 'translateZ(0) translate(0, 0) rotate(90deg)'
+				},
+				'65%, 85%': {
+					transform: 'translateZ(0) translate(0, 0) rotate(270deg)'
+				},
+				'100%': {
+					transform: 'translateZ(0) translate(0, 0) rotate(360deg)'
+				}
+			}
+		},
+		animation: {
+			'accordion-down': 'accordion-down 0.2s ease-out',
+			'accordion-up': 'accordion-up 0.2s ease-out',
+			'orb-pulse': 'orb-pulse 8s ease-in-out infinite',
+			'orb-float': 'orb-float 20s ease-in-out infinite',
+			'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
+			'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear'
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

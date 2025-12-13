@@ -99,3 +99,84 @@
     transform: translateY(-2px);
   }
 }
+
+/* Performance Optimizations */
+@layer base {
+  /* Prefers Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Mobile Performance Optimizations */
+  @media (max-width: 768px) {
+    /* Reduce blur filters on mobile */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Improve scroll performance */
+    body {
+      -webkit-overflow-scrolling: touch;
+      transform: translateZ(0);
+    }
+  }
+
+  /* GPU Acceleration Hints */
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Testimonials Marquee Animation - Smooth infinite scroll */
+  @keyframes testimonials-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .testimonials-marquee {
+    animation: testimonials-scroll 60s linear infinite;
+    will-change: transform;
+    display: flex;
+  }
+
+  /* Mobile: slower animation for better performance */
+  @media (max-width: 768px) {
+    .testimonials-marquee {
+      animation-duration: 90s;
+    }
+  }
+
+  /* Pause on hover for desktop */
+  @media (hover: hover) {
+    .testimonials-marquee:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials-marquee {
+      animation: none;
+    }
+  }
+
+  /* Smooth performance optimization for marquee children */
+  .testimonials-marquee > * {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+  }
+}

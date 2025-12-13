@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { BlurFade } from "@/components/ui/blur-fade";
 import Image from "next/image";
 
 export function BringOutBestSection() {
@@ -9,11 +9,10 @@ export function BringOutBestSection() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content - Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+          <BlurFade
+            direction="right"
+            delay={0}
+            duration={0.8}
           >
             <h2 className="text-4xl md:text-6xl font-bold text-white uppercase tracking-widest mb-6">
               WORD DE BESTE VERSIE
@@ -26,14 +25,13 @@ export function BringOutBestSection() {
               nieuwe carrièrekansen te grijpen. Alles draait om de juiste mindset en motivatie! 
               Waar wacht je nog op? Pak die carrièrekansen, juist nu!
             </p>
-          </motion.div>
+          </BlurFade>
 
           {/* Right Content - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <BlurFade
+            direction="left"
+            delay={0.2}
+            duration={0.8}
             className="relative"
           >
             <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden bg-blue-900/20 border border-white/10">
@@ -45,7 +43,7 @@ export function BringOutBestSection() {
                 priority
               />
             </div>
-          </motion.div>
+          </BlurFade>
         </div>
       </div>
     </section>

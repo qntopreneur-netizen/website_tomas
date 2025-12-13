@@ -168,7 +168,7 @@ export function SalesQuiz({ open, onOpenChange }: QuizProps) {
       timestamp: new Date().toISOString(),
     };
 
-    const webhookUrl = "https://n8n.chargaway.nl/webhook-test/80d2213f-2647-4ccb-9beb-1347f5a6ff65";
+    const webhookUrl = "https://n8n.chargaway.nl/webhook/80d2213f-2647-4ccb-9beb-1347f5a6ff65";
 
     // Console log voor debugging
     console.log("📤 Sending to webhook:", JSON.stringify(submissionData, null, 2));

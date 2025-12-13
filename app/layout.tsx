@@ -21,8 +21,14 @@ export const metadata: Metadata = {
   title: "The Sales Agency - Sales is een Lifestyle",
   description: "The Sales Agency - Verander sales in jouw lifestyle",
   icons: {
-    icon: "/logo_tomas.png",
-    apple: "/logo_tomas.png",
+    icon: [
+      { url: "/logo_tomas.png", sizes: "any" },
+      { url: "/logo_tomas.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/logo_tomas.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/logo_tomas.png",
   },
 };
 
@@ -45,7 +51,7 @@ export default function RootLayout({
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed",
+              backgroundAttachment: "scroll", // Changed from fixed for better mobile performance
             }}
           >
             {/* Overlay for consistent tint and better text readability */}
@@ -54,7 +60,6 @@ export default function RootLayout({
           <div className="fixed inset-0 z-[1] pointer-events-none">
             <CyberBackground />
           </div>
-          <NavbarWrapper />
           <div className="flex-1 relative z-10">
             {children}
           </div>

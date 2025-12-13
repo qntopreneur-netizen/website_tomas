@@ -1,16 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import { NewHeroSection } from "@/components/new-hero-section";
 import { WaveDivider } from "@/components/wave-divider";
 import { BringOutBestSection } from "@/components/bring-out-best-section";
 import { WerverVanDeMaand } from "@/components/werver-van-de-maand";
 import { TestimonialsSection } from "@/components/testimonials-section";
+import { Navbar } from "@/components/ui/navbar";
 
 export default function Home() {
+  const [quizOpen, setQuizOpen] = useState(false);
+
   return (
     <main className="min-h-screen relative">
-      {/* Hero Section */}
-      <NewHeroSection />
+      {/* Navbar - Sticky at page level with top-4 spacing */}
+      <div className="sticky top-4 z-50 w-full px-4 -mb-20">
+        <Navbar onStartQuiz={() => setQuizOpen(true)} />
+      </div>
+
+      {/* Hero Section - Starts from top, navbar overlaps */}
+      <NewHeroSection quizOpen={quizOpen} setQuizOpen={setQuizOpen} />
       
       {/* Bring Out The Best Section */}
       <BringOutBestSection />

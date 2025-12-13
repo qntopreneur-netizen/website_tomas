@@ -34,7 +34,7 @@ export default function SolliciterenPage() {
       timestamp: new Date().toISOString(),
     };
 
-    const webhookUrl = "https://n8n.chargaway.nl/webhook/3238cd28-c7e5-4ca4-b6bf-9c6ebfb742fc";
+    const webhookUrl = "https://n8n.chargaway.nl/webhook/87b04b2b-eb10-4d60-8beb-bd01e140eae5";
 
     try {
       const response = await fetch(webhookUrl, {
