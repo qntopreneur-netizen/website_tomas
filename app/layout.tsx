@@ -4,6 +4,7 @@ import "./globals.css";
 import { Footer } from "@/components/footer";
 import { CyberBackground } from "@/components/cyber-background";
 import { PasswordLock } from "@/components/password-lock";
+import { NavbarWrapper } from "@/components/navbar-wrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -59,6 +60,8 @@ export default function RootLayout({
           <div className="fixed inset-0 z-[1] pointer-events-none">
             <CyberBackground />
           </div>
+          {/* Navbar - Visible on all pages, sticky positioning without taking space */}
+          <NavbarWrapper />
           <div className="flex-1 relative z-10">
             {children}
           </div>

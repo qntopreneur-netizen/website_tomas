@@ -48,7 +48,7 @@ export function NewHeroSection({ quizOpen, setQuizOpen }: NewHeroSectionProps = 
   
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
-      {/* Background Image - Starts from very top, covers entire section */}
+      {/* Background Image - Starts from very top of page, covers entire section */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/tablet.jpg"
@@ -64,7 +64,7 @@ export function NewHeroSection({ quizOpen, setQuizOpen }: NewHeroSectionProps = 
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/70 to-black/80" />
 
       {/* Content */}
-      <div className="relative z-20 flex-1 flex items-center py-16 md:py-24 pt-24 md:pt-32 pb-8">
+      <div className="relative z-20 flex-1 flex items-center py-16 md:py-24 pt-32 md:pt-40 pb-8">
         <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
           <div className="max-w-2xl">
             <motion.h1
